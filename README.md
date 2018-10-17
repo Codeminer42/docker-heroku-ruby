@@ -1,16 +1,23 @@
-:warning: This image is based on `heroku/ruby` but **will not**
-precompile Rails Assets to prevent the _Connection refused_
-problem when using database.
-
 :warning: Development only image!
-
-See https://devcenter.heroku.com/articles/rails-asset-pipeline#troubleshooting.
-
-Based on the modifications performed by Paulo Diovani (https://github.com/letsevents/docker-heroku-ruby).
 
 # Heroku Ruby Docker Image
 
 This image is for use with Heroku Docker CLI.
+
+## Build
+
+Generate a new test image in development environment with:
+
+```sh
+bin/build-local.sh
+```
+
+A new image will be generated locally with the name
+`lets/docker-heroku-ruby-local:latest`. Test the changes you want with this
+image and make sure they are all good.
+
+The automated build will generate a new image in dockerhub after the merge to
+the master branch.
 
 ## Usage
 

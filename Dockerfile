@@ -1,14 +1,9 @@
 FROM heroku/heroku:16
 MAINTAINER Samuel Brandão <samuel@lets.events>
 
-ARG USER_ID
-ARG GROUP=users
-ARG BASE_DIR=/app
-
 #
 # build dependencies
 #
-
 ARG PG_VERSION=9.5.3
 ARG PG_DOWNLOAD_SHA256=1f070a8e80ce749e687d2162e4a27107e2cc1703a471540e08111bbfb5853f9e
 
@@ -50,12 +45,14 @@ RUN set -ex \
 # binary dependencies
 #
 
+ARG BASE_DIR=/app
 ARG RUBY_VERSION=2.4.0
 ARG NODE_VERSION=0.12.7
 ARG RUBY_TGZ_SOURCE=https://heroku-buildpack-ruby.s3.amazonaws.com/cedar-14/ruby-${RUBY_VERSION}.tgz
 ARG NODE_TGZ_SOURCE=http://s3pository.heroku.com/node/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz
 ARG RUBY_DIR=${BASE_DIR}/ruby/${RUBY_VERSION}
 ARG NODE_DIR=${BASE_DIR}/node/${NODE_VERSION}
+
 
 RUN set -ex \
   && mkdir -p ${RUBY_DIR} ${NODE_DIR} \
@@ -71,6 +68,8 @@ RUN set -ex \
 ARG BUNDLER_VERSION=1.16.1
 ARG GEM_ROOT_DIR=${BASE_DIR}/bundle
 ARG SRC_DIR=${BASE_DIR}/src
+ARG USER_ID=1000
+ARG GROUP=users
 
 ENV BUNDLE_PATH=${GEM_ROOT_DIR} \
     PATH=${RUBY_DIR}/bin:${NODE_DIR}/bin:${GEM_ROOT_DIR}/bin:${PATH}
